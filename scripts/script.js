@@ -1,60 +1,56 @@
 const urlBase = "http://localhost:5271/api";
 
 $(document).ready(function () {
-    // 1. Carregar os dados da API
-    $.ajax({
+    const reqObra = $.ajax({
         url: urlBase + "/Obra",
         type: "GET",
-        contentType: "application/json",
-        success: function (dados) {
-            const slides = $('#containeslide');
-            
-            // Limpa o conteúdo (se houver slides estáticos) e insere os novos
-            slides.empty(); 
-            
-            // Cria e insere os slides dinâmicos
-            dados.forEach(obra => {
-                const item = `   
+        contentType: "application/json"
+    });
+
+    const reqCaixilho = $.ajax({
+        url: urlBase + "/Caixilho",
+        type: "GET",
+        contentType: "application/json"
+    });
+
+    $.when(reqObra, reqCaixilho).done(function (resObra, resCaixilho) {
+        const dadosObra = resObra[0];
+        const dadosCaixilho = resCaixilho[0];
+
+        const slides = $('#containeslide');
+        slides.empty();
+
+        // Para cada obra, encontrar os caixilhos correspondentes
+        dadosObra.forEach(obra => {
+           dadosCaixilho.forEach(caixilho => {
+            const item = `   
                     <li class="splide__slide" style="background-image: url(./img/heritage.jpg); border-radius: 16px; overflow: hidden;">
                         <div class="slide-content">
                             <div class="degrade">
                                 <h3>${obra.nome}</h3>
                                 <p>${obra.logradouro}</p>
-                                <p>Alumínio: 70 ton | Área: 20km</p>
+                                <p>Alumínio: ${(caixilho.pesoUnitario)* (caixilho.quantidade)} ton | Altura: ${caixilho.altura}</p>
                             </div>
                         </div>
                     </li>
                 `;
                 slides.append(item);
-            });
-            
-            // 2. ***PONTO CHAVE: INICIALIZAÇÃO DA SPLIDE***
-            // Inicializa a Splide SÓ AGORA, com os slides já no DOM.
-            const splide = new Splide('#heritage-carousel', {
-                // Suas opções de configuração da Splide
-                type: 'loop',
-                perPage: 1, // Exemplo, ajuste conforme seu layout
-                perMove: 1,
-                autoplay: true,
-                interval: 3000,
-                gap: '1rem', // Espaçamento entre os slides
-                // Se precisar de responsividade, coloque aqui:
-                breakpoints: { 
-                    768: {
-                        perPage: 1,
-                    },
-                    1200: {
-                        perPage: 2,
-                    }
-                }
-            });
+           })
+        });
 
-            // Monta (cria) o carrossel, se não for feito automaticamente com 'new Splide'
-            splide.mount();
+        const splide = new Splide('#heritage-carousel', {
+            type: 'loop',
+            perPage: 1,
+            perMove: 1,
+            autoplay: true,
+            interval: 3000,
+            gap: '1rem',
+            breakpoints: {
+                768: { perPage: 1 },
+                1200: { perPage: 2 }
+            }
+        });
 
-        },
-        error: function (erro) {
-            console.log("Ocorreu um erro ao carregar as obras: " + erro);
-        }
+        splide.mount();
     });
 });
