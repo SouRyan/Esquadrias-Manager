@@ -19,21 +19,25 @@ $(document).ready(function () {
 
         const slides = $('#containeslide');
         slides.empty();
-
+        const nomesExibidos = new Set();
         // Para cada obra, encontrar os caixilhos correspondentes
         dadosObra.forEach(obra => {
-           dadosCaixilho.forEach(caixilho => {
+
+            dadosCaixilho.forEach(caixilho => {
+               if (nomesExibidos.has(obra.nome)) return;
             const item = `   
                     <li class="splide__slide" style="background-image: url(./img/heritage.jpg); border-radius: 16px; overflow: hidden;">
                         <div class="slide-content">
                             <div class="degrade">
                                 <h3>${obra.nome}</h3>
-                                <p>${obra.logradouro}</p>
-                                <p>Alumínio: ${(caixilho.pesoUnitario)* (caixilho.quantidade)} ton | Altura: ${caixilho.altura}</p>
+                                <p>${obra.logradouro} ${obra.nro} - ${obra.bairro}</p>
+                                <p>Alumínio: ${(caixilho.pesoUnitario) * (caixilho.quantidade)} ton | Altura: ${caixilho.altura}</p>
                             </div>
                         </div>
                     </li>
                 `;
+                // @($"{item.Logradouro} {item.Nro} {item.Bairro} {item.Uf} {item.Cep}")
+                nomesExibidos.add(obra.nome); 
                 slides.append(item);
            })
         });
