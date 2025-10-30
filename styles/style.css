@@ -896,3 +896,62 @@ footer {
   }
 }
 
+
+.dados_demostrativos{
+  margin-top: 200px;
+  margin-bottom: 200px;
+  display: flex;
+  flex-wrap: wrap;
+  font-family: "Fira Code", monospace;
+
+  gap: 20px;
+}
+.indicador-card {
+  /* Fundo do card (quase preto) */
+  background-color: #242424; 
+  color: #ffffff; /* Branco para números e título */
+  padding: 1.2em;
+  border-radius: 8px;
+  width: 400px; /* Largura ajustável */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.icons_dados{
+  height: 100px;
+}
+.titulo {
+  font-size: 1.1em;
+  font-weight: 500;
+  margin-bottom: 0.5em;
+}
+
+.conteudo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.valor-container {
+  line-height: 1; /* Para evitar espaço extra acima/abaixo do número */
+}
+
+.valor {
+  font-size: 3.5em;
+  font-weight: 700;
+  margin: 0;
+  padding: 0;
+  display: block; /* Garante que o subtexto fique abaixo */
+}
+
+.subtexto {
+  font-size: 0.7em;
+  color: #aaaaaa; /* Cinza claro para subtexto */
+  margin-top: -0.2em; /* Puxa um pouco para cima, aproximando do número */
+  font-weight: 400;
+}
+
+.icone {
+  font-size: 3.5em; /* Ajuste para o tamanho do número */
+  color: #ffffff;
+  /* Usando o ícone de peso do Font Awesome */
+}
+
