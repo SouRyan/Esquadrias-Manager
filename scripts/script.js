@@ -6,6 +6,16 @@ $(document).ready(function () {
     type: "GET",
     contentType: "application/json",
   });
+  const reqObraFinalizada = $.ajax({
+    url: urlBase + "/Obra/finalizadas",
+    type: "GET",
+    contentType: "application/json",
+  });
+  const reqObraNaoFinalizada = $.ajax({
+    url: urlBase + "/Obra/naofinalizadas",
+    type: "GET",
+    contentType: "application/json",
+  });
 
   const reqCaixilho = $.ajax({
     url: urlBase + "/Caixilho",
@@ -13,13 +23,14 @@ $(document).ready(function () {
     contentType: "application/json",
   });
 
-  $.when(reqObra, reqCaixilho).done(function (resObra, resCaixilho) {
+  $.when(reqObra, reqCaixilho,reqObraFinalizada, reqObraNaoFinalizada).done(function (resObra, resCaixilho,resObraFinalizada,resObraNaoFinalizada) {
     const dadosObra = resObra[0];
     const dadosCaixilho = resCaixilho[0];
-
+    const dadosObrasFinalizadas = resObraFinalizada[0];
+    const dadosObrasNaoFinalizadas = resObraNaoFinalizada[0];
     const tempo_intervalo = 5;
     const tempo = 2000;
-
+    
     const dados_demonstrativos = $(".dados_demostrativos");
     dados_demonstrativos.empty();
 
@@ -28,13 +39,14 @@ $(document).ready(function () {
         soma + parseInt(item.quantidade) * parseFloat(item.pesoUnitario),
       0
     );
+    
 
     const item = `
       <div class="indicador-card">
         <div class="titulo">Obras Concluídas</div>
         <div class="conteudo">
             <div class="valor-container">
-                <span class="valor counter-up" data-count-to="${Math.round(pesoTotal)}">d</span>
+                <span class="valor counter-up" data-count-to="${dadosObrasFinalizadas.length}">d</span>
                 <div class="subtexto">Neste mês</div>
             </div>
             <img src="./img/icons/bank.png" alt="" class="icons_dados">
@@ -50,16 +62,16 @@ $(document).ready(function () {
             <img src="./img/icons/weight.png" alt="" class="icons_dados">
         </div>
       </div>
-      <div class="indicador-card">
-        <div class="titulo">Obras Ativas</div>
-        <div class="conteudo">
-            <div class="valor-container">
-                <span class="valor">3</span>
-                <div class="subtexto">Obras em andamento</div>
-            </div>
-            <img src="./img/icons/verifica.png" alt="" class="icons_dados">
-        </div>
-      </div>
+       <div class="indicador-card">
+          <div class="titulo">Obras Ativas</div>
+          <div class="conteudo">
+              <div class="valor-container">
+                  <span class="valor counter-up " data-count-to="${dadosObrasNaoFinalizadas.length}">3</span>
+                  <div class="subtexto">Obras em andamento</div>
+              </div>
+              <img src="./img/icons/verifica.png" alt="" class="icons_dados">
+          </div>
+          </div>
     `;
 
     dados_demonstrativos.append(item);

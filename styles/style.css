@@ -26,7 +26,7 @@ body {
   height: 180rem;
 }
 nav {
-  height: 100%;
+  height: 130%;
   background: var(--clr-primary-black);
   padding: 3rem 1rem;
   display: flex;
@@ -260,8 +260,9 @@ a{
     /* gap: 20px; */
     margin: 100px;
   }
-
+  
   .item_principios {
+    width: 100%;
     padding: 20px;
   }
 
@@ -894,16 +895,17 @@ footer {
     gap: 10px;
     font-size: 0.9em;
   }
+
 }
 
 
 .dados_demostrativos{
-  margin-top: 200px;
-  margin-bottom: 200px;
+  justify-content: center;
+  margin-top: 100px;
+  margin-bottom: 100px;
   display: flex;
   flex-wrap: wrap;
   font-family: "Fira Code", monospace;
-
   gap: 20px;
 }
 .indicador-card {
@@ -912,11 +914,16 @@ footer {
   color: #ffffff; /* Branco para números e título */
   padding: 1.2em;
   border-radius: 8px;
-  width: 400px; /* Largura ajustável */
+  width: 25rem; /* Largura ajustável */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
+@media (max-width: 430px){
+  .indicador-card{
+    width: 17rem;
+  }
+}
 .icons_dados{
-  height: 100px;
+  height: 7rem;
 }
 .titulo {
   font-size: 1.1em;
