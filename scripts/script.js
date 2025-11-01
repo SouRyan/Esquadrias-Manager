@@ -24,7 +24,8 @@ $(document).ready(function () {
   });
 
   $.when(reqObra, reqCaixilho,reqObraFinalizada, reqObraNaoFinalizada).done(function (resObra, resCaixilho,resObraFinalizada,resObraNaoFinalizada) {
-    const dadosObra = resObra[0];
+    const dadosObra = resObra[0].reverse();
+    var dadosObrasAcontrario = dadosObra.pop();
     const dadosCaixilho = resCaixilho[0];
     const dadosObrasFinalizadas = resObraFinalizada[0];
     const dadosObrasNaoFinalizadas = resObraNaoFinalizada[0];
@@ -99,25 +100,32 @@ $(document).ready(function () {
     // Carrossel
     const slides = $("#containeslide");
     slides.empty();
-    const nomesExibidos = new Set();
+    var contagem = 0
 
+    const nomesExibidos = new Set();
     dadosObra.forEach((obra) => {
-      dadosCaixilho.forEach((caixilho) => {
-        if (nomesExibidos.has(obra.nome)) return;
-        const item = `
-          <li class="splide__slide" style="background-image: url(./img/heritage.jpg); border-radius: 16px; overflow: hidden;">
-            <div class="slide-content">
-              <div class="degrade">
-                <h3>${obra.nome}</h3>
-                <p>${obra.logradouro} ${obra.nro} - ${obra.bairro}</p>
-                <p>Alumínio: ${caixilho.pesoUnitario * caixilho.quantidade} ton | Altura: ${caixilho.altura}</p>
-              </div>
-            </div>
+      if(contagem < 5){
+        dadosCaixilho.forEach((caixilho) => {
+          console.log(obra.imagemObraPath)
+          console.log(dadosObrasAcontrario)
+          if (nomesExibidos.has(obra.nome)) return;// mudar quando hospedar
+          if (obra.imagemObraPath == null) return;
+          const item = `
+          <li class="splide__slide" style="background-image: url(http://localhost:5192/${obra.imagemObraPath}); border-radius: 16px; overflow: hidden; background-size: cover; background-position: center;"> 
+          <div class="slide-content">
+          <div class="degrade">
+          <h3>${obra.nome}</h3>
+          <p>${obra.logradouro} ${obra.nro} - ${obra.bairro}</p>
+          <p>Alumínio: ${caixilho.pesoUnitario * caixilho.quantidade} ton | Altura: ${caixilho.altura}</p>
+          </div>
+          </div>
           </li>
-        `;
-        nomesExibidos.add(obra.nome);
-        slides.append(item);
-      });
+          `;
+          nomesExibidos.add(obra.nome);
+          slides.append(item);
+        });
+        contagem++
+      }
     });
 
     const splide = new Splide("#heritage-carousel", {

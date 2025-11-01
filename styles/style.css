@@ -71,11 +71,12 @@ h1 {
 /* MENU */
 .ul_itens_pesquisa {
   display: flex;
+  gap: 3rem;
   a{
     text-decoration: none;
     color: white;
+    background: transparent;
   }
-  gap: 3rem;
 
 }
 
@@ -122,6 +123,7 @@ h1 {
   }
 
   .ul_itens_pesquisa {
+    
     position: absolute;
     top: 5rem;
     right: 0;
@@ -140,6 +142,11 @@ h1 {
   }
 
   .btn_Login {
+    display: none;
+  }
+}
+@media (max-width: 375px){
+  .amostra_img{
     display: none;
   }
 }
@@ -728,6 +735,7 @@ footer {
 .rodape-conteudo {
   background: var(--clr-secondary-black);
   display: flex;
+  
   justify-content: space-between;
   align-items: center;
   border-radius: 15px;
