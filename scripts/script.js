@@ -48,16 +48,16 @@ $(document).ready(function () {
         <div class="conteudo">
             <div class="valor-container">
                 <span class="valor counter-up" data-count-to="${dadosObrasFinalizadas.length}">d</span>
-                <div class="subtexto">Neste mês</div>
+                <div class="subtexto">Ao todo</div>
             </div>
             <img src="./img/icons/bank.png" alt="" class="icons_dados">
         </div>
       </div>
       <div class="indicador-card">
-        <div class="titulo">Caixilhos Produzidos</div>
+        <div class="titulo">Peso Produzido</div>
         <div class="conteudo">
             <div class="valor-container">
-                <span class="valor counter-up" data-count-to="${Math.round(pesoTotal)}"></span>
+                <span class="valor counter-up" data-count-to="${Math.round(pesoTotal)/1000}"></span>
                 <div class="subtexto">Toneladas</div>
             </div>
             <img src="./img/icons/weight.png" alt="" class="icons_dados">
@@ -106,21 +106,25 @@ $(document).ready(function () {
     dadosObra.forEach((obra) => {
       if(contagem < 5){
         dadosCaixilho.forEach((caixilho) => {
+
           console.log(obra.imagemObraPath)
           console.log(dadosObrasAcontrario)
+          
           if (nomesExibidos.has(obra.nome)) return;// mudar quando hospedar
           if (obra.imagemObraPath == null) return;
+          
           const item = `
           <li class="splide__slide" style="background-image: url(http://localhost:5192/${obra.imagemObraPath}); border-radius: 16px; overflow: hidden; background-size: cover; background-position: center;"> 
           <div class="slide-content">
           <div class="degrade">
           <h3>${obra.nome}</h3>
           <p>${obra.logradouro} ${obra.nro} - ${obra.bairro}</p>
-          <p>Alumínio: ${caixilho.pesoUnitario * caixilho.quantidade} ton | Altura: ${caixilho.altura}</p>
+          
           </div>
           </div>
           </li>
           `;
+          // <p>Alumínio: ${caixilho.pesoUnitario * caixilho.quantidade} ton | Altura: ${caixilho.altura}</p>
           nomesExibidos.add(obra.nome);
           slides.append(item);
         });
