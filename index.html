@@ -20,17 +20,19 @@
 
         <input type="checkbox" id="menu-toggle" />
         <label for="menu-toggle" class="menu-icon">&#9776;</label>
-
+        
         <ul class="ul_itens_pesquisa">
-          <a href="#Funcionalidades"><li>Serviços</li></a>
-          <a href="#Funcionalidades"><li>Sobre Nós</li></a>
-          <a href="#Funcionalidades"><li>Contato</li></a>
+          <a href="#Principios"><li>Principios</li></a>
+          <a href="#slidesObras"><li>Obras</li></a>
+          <a href="#contato"><li>Contato</li></a>
           <!-- <li>Ajuda</li> -->
         </ul>
 
-        <div class="btn_Login">
-          <p>Acessar</p>
-        </div>
+        <a href="http://localhost:5192/" style="text-decoration: none;">
+          <div class="btn_Login">
+            <p>Acessar</p>
+          </div>
+        </a>
       </div>
     </header>
 
@@ -88,8 +90,9 @@
 
       
       </section>
+      
       <section class="principios_section">
-        <h1>Principios</h1>
+        <h1 id="Principios">Principios</h1>
         <div class="item_principios">
           <div class="header_item_principios">
             <svg
@@ -123,6 +126,7 @@
             Controle total do cronograma, da medição e da produção. Elimine atrasos e conflitos: visualize a disponibilidade de recursos, gerencie datas de entrega e acompanhe o status de cada esquadria em tempo real.
           </div>
         </div>
+
         <div class="item_principios">
           <div class="header_item_principios">
             <svg
@@ -165,7 +169,7 @@
         </div>
       </section>
 
-      <section class="slides">
+      <section class="slides" id="slidesObras">
         <div class="container" >
           <div class="carousel-container" >
             <div class="splide" id="heritage-carousel" >
@@ -234,7 +238,7 @@
     </div>
     </nav>
     <footer>
-      <div class="rodape-conteudo">
+      <div class="rodape-conteudo" id="contato">
   
           <div class="perfil-info">
             <div class="bloco">
